@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: springboot-app
+  template:
+    metadata:
+      labels:
+        app: springboot-app
+    spec:
+      containers:
+      - name: springboot-container
+        image: us-east1-docker.pkg.dev/survey-application-456213/survey-repo/springboot-app:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://database-1.cxzzxwkayrzc.us-east-1.rds.amazonaws.com:3306/survey_db_aws
+        - name: SPRING_DATASOURCE_USERNAME
+          value: admin
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: survey-db123456

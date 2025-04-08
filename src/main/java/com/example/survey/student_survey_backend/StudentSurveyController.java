@@ -1,4 +1,5 @@
 package com.example.survey.student_survey_backend;
+
 import com.example.survey.student_survey_backend.StudentSurveyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,11 +11,16 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/surveys")
-@CrossOrigin(origins = "http://localhost:4200") // Allow frontend access
+@CrossOrigin(origins = "*") // Allow frontend access
 public class StudentSurveyController {
 
     @Autowired
     private StudentSurveyService surveyService;
+
+    @GetMapping("/")
+    public String home() {
+        return "Student Survey Backend is running!";
+    }
 
     @GetMapping
     public List<StudentSurvey> getAllSurveys() {
@@ -26,12 +32,9 @@ public class StudentSurveyController {
         return surveyService.getSurveyById(id);
     }
 
- 
-
     @PostMapping
     public StudentSurvey createSurvey(@RequestBody StudentSurvey survey) {
-      return surveyService.saveSurvey(survey);
-      
+        return surveyService.saveSurvey(survey);
 
     }
 
@@ -41,9 +44,9 @@ public class StudentSurveyController {
     }
 
     @DeleteMapping("/{id}")
-     public ResponseEntity<Void> deleteSurvey(@PathVariable Long id) {
-           surveyService.deleteSurvey(id);
-           return ResponseEntity.noContent().build();
-}
+    public ResponseEntity<Void> deleteSurvey(@PathVariable Long id) {
+        surveyService.deleteSurvey(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
