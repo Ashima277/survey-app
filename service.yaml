@@ -4,6 +4,7 @@ metadata:
   name: springboot-service
 spec:
   type: LoadBalancer
+  loadBalancerIP: 35.211.43.102
   selector:
     app: springboot-app
   ports:
